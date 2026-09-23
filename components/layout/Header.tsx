@@ -15,7 +15,6 @@ const navLinks = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
   const pathname = usePathname();
 
   useEffect(() => {
@@ -46,6 +45,9 @@ export default function Header() {
     };
   }, [menuOpen]);
 
+  const headerTextColor = scrolled ? "#1A1A1A" : "#FAF8F5";
+  const inactiveNavColor = scrolled ? "#5A5A5A" : "rgba(250,248,245,0.9)";
+
   return (
     <>
       <header
@@ -53,20 +55,35 @@ export default function Header() {
         style={{
           backgroundColor: scrolled
             ? "rgba(250,248,245,0.96)"
-            : "transparent",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
+            : "rgba(26,26,26,0.03)",
+          backdropFilter: scrolled ? "blur(12px)" : "blur(8px)",
+          WebkitBackdropFilter: scrolled ? "blur(12px)" : "blur(8px)",
           borderBottom: scrolled
             ? "1px solid rgba(216,195,165,0.3)"
-            : "1px solid transparent",
+            : "1px solid rgba(250,248,245,0.08)",
         }}
       >
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 md:px-10">
+        {!scrolled && (
+          <div
+            className="pointer-events-none absolute inset-x-0 top-full h-24"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(26,26,26,0.04), rgba(26,26,26,0))",
+            }}
+            aria-hidden="true"
+          />
+        )}
+
+        <div className="relative mx-auto flex max-w-[1440px] items-center justify-between px-6 py-5 md:px-10">
           {/* Logo */}
           <Link
             href="/"
-            className="text-base tracking-[0.18em] uppercase md:text-lg"
+            className="text-base tracking-[0.18em] uppercase transition-opacity duration-300 hover:opacity-80 md:text-lg"
             style={{
-              color: "#1A1A1A",
+              color: headerTextColor,
+              textShadow: scrolled
+                ? "none"
+                : "0 1px 12px rgba(0,0,0,0.25)",
             }}
           >
             Manswab Production
@@ -81,11 +98,18 @@ export default function Header() {
                 <Link
                   key={href}
                   href={href}
-                  className="text-sm tracking-widest uppercase transition-colors duration-200"
+                  className="text-sm tracking-widest uppercase transition-colors duration-300"
                   style={{
-                    color: isActive ? "#7A5C45" : "#5A5A5A",
+                    color: isActive
+                      ? scrolled
+                        ? "#7A5C45"
+                        : "#D8C3A5"
+                      : inactiveNavColor,
                     letterSpacing: "0.12em",
                     fontWeight: 400,
+                    textShadow: scrolled
+                      ? "none"
+                      : "0 1px 10px rgba(0,0,0,0.25)",
                   }}
                 >
                   {label}
@@ -98,13 +122,18 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <Link
               href="/consultation"
-              className="hidden items-center px-6 py-3 text-sm tracking-widest uppercase transition-all duration-200 lg:inline-flex"
+              className="hidden items-center px-6 py-3 text-sm tracking-widest uppercase transition-all duration-300 lg:inline-flex"
               style={{
-                backgroundColor: "#D8C3A5",
+                backgroundColor: scrolled
+                  ? "#D8C3A5"
+                  : "rgba(216,195,165,0.82)",
                 color: "#1A1A1A",
                 borderRadius: "12px",
                 letterSpacing: "0.1em",
                 fontWeight: 400,
+                boxShadow: scrolled
+                  ? "none"
+                  : "0 4px 20px rgba(0,0,0,0.12)",
               }}
             >
               Begin Your Story
@@ -121,25 +150,23 @@ export default function Header() {
               <span
                 className="block h-px w-6 origin-center transition-all duration-300"
                 style={{
-                  backgroundColor: "#1A1A1A",
+                  backgroundColor: headerTextColor,
                   transform: menuOpen
                     ? "translateY(4px) rotate(45deg)"
                     : "none",
                 }}
               />
-
               <span
                 className="block h-px w-4 transition-all duration-300"
                 style={{
-                  backgroundColor: "#1A1A1A",
+                  backgroundColor: headerTextColor,
                   opacity: menuOpen ? 0 : 1,
                 }}
               />
-
               <span
                 className="block h-px w-6 origin-center transition-all duration-300"
                 style={{
-                  backgroundColor: "#1A1A1A",
+                  backgroundColor: headerTextColor,
                   transform: menuOpen
                     ? "translateY(-4px) rotate(-45deg)"
                     : "none",
@@ -158,8 +185,7 @@ export default function Header() {
           opacity: menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? "auto" : "none",
           transform: menuOpen ? "translateY(0)" : "translateY(-8px)",
-          transition:
-            "opacity 500ms ease, transform 500ms ease",
+          transition: "opacity 500ms ease, transform 500ms ease",
         }}
       >
         <div className="flex flex-1 flex-col justify-center px-8 pt-24 pb-12">

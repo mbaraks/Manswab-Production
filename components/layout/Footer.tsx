@@ -1,72 +1,121 @@
 import Link from "next/link";
 
+const navigation = [
+  { label: "Stories", href: "/stories" },
+  { label: "Experience", href: "/experience" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
 export default function Footer() {
   return (
-    <footer className="border-t border-black/10 bg-[var(--color-cream)]">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="grid gap-12 md:grid-cols-3">
-          <div>
+    <footer className="bg-[#1A1A1A] px-6 py-16 md:px-20 md:py-24">
+      <div className="mx-auto max-w-[1200px]">
+        <div className="grid gap-16 md:grid-cols-12 md:gap-8">
+          <div className="md:col-span-6">
             <Link
               href="/"
-              className="font-[var(--font-display)] text-3xl"
+              className="font-display text-4xl font-light tracking-[0.02em]"
+              style={{ color: "#FAF8F5" }}
             >
               Manswab Production
             </Link>
 
-            <p className="mt-4 max-w-sm text-sm leading-6 text-[var(--color-muted-ink)]">
-              Luxury wedding photography crafted around authentic moments,
-              meaningful stories, and timeless imagery.
+            <p
+              className="mt-6 max-w-md text-sm leading-7"
+              style={{ color: "#B8B1A9" }}
+            >
+              Wedding photography created with intention, presence, and a
+              deep appreciation for the moments that matter most.
             </p>
           </div>
 
-          <div>
-            <h2 className="text-sm font-medium uppercase tracking-[0.2em]">
+          <div className="md:col-span-3">
+            <p
+              className="mb-6 text-xs uppercase tracking-[0.25em]"
+              style={{ color: "#D8C3A5" }}
+            >
               Explore
-            </h2>
+            </p>
 
-            <nav className="mt-5 flex flex-col gap-3 text-sm">
-              <Link href="/stories" className="hover:opacity-60">
-                Stories
-              </Link>
-
-              <Link href="/experience" className="hover:opacity-60">
-                Experience
-              </Link>
-
-              <Link href="/about" className="hover:opacity-60">
-                About
-              </Link>
-
-              <Link href="/contact" className="hover:opacity-60">
-                Contact
-              </Link>
+            <nav className="flex flex-col gap-4">
+              {navigation.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="w-fit text-sm transition-colors duration-300 hover:text-[#D8C3A5]"
+                  style={{ color: "#FAF8F5" }}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
           </div>
 
-          <div>
-            <h2 className="text-sm font-medium uppercase tracking-[0.2em]">
+          <div className="md:col-span-3">
+            <p
+              className="mb-6 text-xs uppercase tracking-[0.25em]"
+              style={{ color: "#D8C3A5" }}
+            >
               Connect
-            </h2>
+            </p>
 
-            <div className="mt-5 flex flex-col gap-3 text-sm">
-              <a href="#" className="hover:opacity-60">
+            <div className="flex flex-col gap-4">
+              <a
+                href="#"
+                className="w-fit text-sm transition-colors duration-300 hover:text-[#D8C3A5]"
+                style={{ color: "#FAF8F5" }}
+              >
                 Instagram
               </a>
 
-              <a href="#" className="hover:opacity-60">
+              <a
+                href="#"
+                className="w-fit text-sm transition-colors duration-300 hover:text-[#D8C3A5]"
+                style={{ color: "#FAF8F5" }}
+              >
                 Facebook
               </a>
 
-              <a href="#" className="hover:opacity-60">
+              <a
+                href="mailto:"
+                className="w-fit text-sm transition-colors duration-300 hover:text-[#D8C3A5]"
+                style={{ color: "#FAF8F5" }}
+              >
                 Email
               </a>
+
+              <Link
+                href="/contact"
+                className="mt-2 w-fit border-b pb-1 text-sm transition-colors duration-300 hover:text-[#D8C3A5]"
+                style={{
+                  color: "#FAF8F5",
+                  borderColor: "#D8C3A5",
+                }}
+              >
+                Make an enquiry →
+              </Link>
             </div>
           </div>
         </div>
 
-        <div className="mt-16 border-t border-black/10 pt-6 text-xs text-[var(--color-muted-ink)]">
-          © {new Date().getFullYear()} Manswab Production. All rights
-          reserved.
+        <div
+          className="mt-16 border-t pt-6 md:mt-24"
+          style={{ borderColor: "#3A3A3A" }}
+        >
+          <div className="flex flex-col gap-4 text-xs md:flex-row md:items-center md:justify-between">
+            <p style={{ color: "#8F8A84" }}>
+              © {new Date().getFullYear()} Manswab Production. All rights
+              reserved.
+            </p>
+
+            <p
+              className="uppercase tracking-[0.15em]"
+              style={{ color: "#8F8A84" }}
+            >
+              Weddings · Stories · Moments
+            </p>
+          </div>
         </div>
       </div>
     </footer>

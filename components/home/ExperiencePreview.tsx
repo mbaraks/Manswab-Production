@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Link from "next/link";
 
 const experiences = [
@@ -28,14 +25,7 @@ export default function ExperiencePreview() {
   return (
     <section className="bg-[#FAF8F5] px-6 py-24 md:px-20 md:py-40">
       <div className="mx-auto max-w-[1200px]">
-        {/* Introduction */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="mb-20 max-w-3xl md:mb-28"
-        >
+        <div className="mb-20 max-w-3xl md:mb-28">
           <p
             className="mb-6 text-xs uppercase tracking-[0.25em]"
             style={{ color: "#7A5C45" }}
@@ -51,34 +41,27 @@ export default function ExperiencePreview() {
             <br />
             An experience worth remembering.
           </h2>
-        </motion.div>
+        </div>
 
-        {/* Experience items */}
-        <div className="border-t" style={{ borderColor: "#D8C3A5" }}>
-          {experiences.map((experience, index) => (
-            <motion.div
+        <div
+          className="border-t"
+          style={{ borderColor: "#D8C3A5" }}
+        >
+          {experiences.map((experience) => (
+            <div
               key={experience.number}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{
-                duration: 0.7,
-                delay: index * 0.1,
-              }}
               className="grid gap-6 border-b py-10 md:grid-cols-12 md:items-start md:gap-8 md:py-14"
               style={{ borderColor: "#D8C3A5" }}
             >
-              {/* Number */}
-              <div className="md:col-span-2">
-                <span
-                  className="text-xs tracking-[0.2em]"
+              <div className="md:col-span-1">
+                <p
+                  className="text-xs uppercase tracking-[0.2em]"
                   style={{ color: "#7A5C45" }}
                 >
                   {experience.number}
-                </span>
+                </p>
               </div>
 
-              {/* Title */}
               <div className="md:col-span-4">
                 <h3
                   className="font-display text-3xl font-light md:text-4xl"
@@ -88,47 +71,39 @@ export default function ExperiencePreview() {
                 </h3>
               </div>
 
-              {/* Description */}
-              <div className="md:col-span-5 md:col-start-8">
+              <div className="md:col-span-6 md:col-start-7">
                 <p
-                  className="max-w-lg text-sm leading-7"
+                  className="max-w-xl text-sm leading-7 md:text-base"
                   style={{ color: "#5A5A5A" }}
                 >
                   {experience.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
-          className="mt-12"
-        >
-<Link
-  href="/experience"
-  className="group inline-flex items-center gap-4 rounded-[8px] px-3 py-2 text-sm transition-all duration-300 hover:bg-[#D8C3A5]/30 active:scale-[0.97]"
-  style={{
-    color: "#1A1A1A",
-    WebkitTapHighlightColor: "transparent",
-  }}
->
-  <span className="border-b border-[#1A1A1A] pb-1 transition-all duration-300 group-hover:border-[#7A5C45] group-hover:text-[#7A5C45]">
-    Discover the experience
-  </span>
+        <div className="mt-12">
+          <Link
+            href="/experience"
+            className="group inline-flex items-center gap-4 rounded-[8px] px-3 py-2 text-sm transition-all duration-300 hover:bg-[#D8C3A5]/30 active:scale-[0.97]"
+            style={{
+              color: "#1A1A1A",
+              WebkitTapHighlightColor: "transparent",
+            }}
+          >
+            <span className="border-b border-[#1A1A1A] pb-1 transition-all duration-300 group-hover:border-[#7A5C45] group-hover:text-[#7A5C45]">
+              Discover the experience
+            </span>
 
-  <span
-    className="transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#7A5C45]"
-    aria-hidden="true"
-  >
-    →
-  </span>
-</Link>
-        </motion.div>
+            <span
+              className="transition-all duration-300 group-hover:translate-x-1 group-hover:text-[#7A5C45]"
+              aria-hidden="true"
+            >
+              →
+            </span>
+          </Link>
+        </div>
       </div>
     </section>
   );

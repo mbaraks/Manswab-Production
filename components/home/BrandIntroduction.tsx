@@ -1,67 +1,31 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-
 export default function BrandIntroduction() {
-  const shouldReduceMotion = useReducedMotion();
-
-  const revealTransition = {
-    duration: shouldReduceMotion ? 0 : 0.8,
-    ease: [0.22, 1, 0.36, 1] as const,
-  };
-
   return (
-    <section className="bg-cream px-6 py-32 md:px-20 md:py-48">
+    <section className="bg-[#FAF8F5] px-6 py-32 md:px-20 md:py-48">
       <div className="mx-auto max-w-[1440px]">
         <div className="max-w-3xl">
-          {/* Eyebrow */}
-          <motion.p
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{
-              ...revealTransition,
-              delay: shouldReduceMotion ? 0 : 0.05,
-            }}
-            className="mb-8 text-xs uppercase tracking-[0.25em]"
-            style={{ color: "#D8C3A5" }}
+          <p
+            className="mb-6 text-xs uppercase tracking-[0.25em]"
+            style={{ color: "#7A5C45" }}
           >
             Our Belief
-          </motion.p>
+          </p>
 
-          {/* Heading */}
-          <motion.h2
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{
-              duration: shouldReduceMotion ? 0 : 0.95,
-              delay: shouldReduceMotion ? 0 : 0.12,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="mb-8 font-display text-[clamp(32px,4vw,56px)] font-light leading-tight tracking-[0.02em]"
+          <h2
+            className="mb-8 font-display text-[clamp(36px,5vw,64px)] font-light leading-[1.1]"
             style={{ color: "#1A1A1A" }}
           >
-            For the moments
-            <br />
-            that matter most.
-          </motion.h2>
+            For the moments that matter most.
+          </h2>
 
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{
-              ...revealTransition,
-              delay: shouldReduceMotion ? 0 : 0.25,
-            }}
-            className="max-w-[560px] text-xl font-light leading-[1.8]"
+          <p
+            className="max-w-2xl text-base leading-8 md:text-lg"
             style={{ color: "#5A5A5A" }}
           >
-            Manswab Production preserves the feeling, the people, and the
-            moments that make your story yours.
-          </motion.p>
+            Manswab Production preserves the feeling of your wedding day
+            through honest, timeless imagery. We believe the most meaningful
+            photographs are not simply seen — they are felt, remembered, and
+            returned to for years to come.
+          </p>
         </div>
       </div>
     </section>

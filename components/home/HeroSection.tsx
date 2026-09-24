@@ -1,15 +1,10 @@
 "use client";
 
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 
 const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1519741497674-611481863552?w=2400&h=1600&fit=crop&auto=format";
+  "https://images.unsplash.com/photo-1519741497674-611481863552?w=2400&h=1600&fit=crop";
 
 export default function HeroSection() {
   const shouldReduceMotion = useReducedMotion();
@@ -27,34 +22,27 @@ export default function HeroSection() {
     ["0%", "12%"],
   );
 
-  const contentY = useTransform(
-    scrollYProgress,
-    [0, 0.5],
-    ["0%", "-18%"],
-  );
-
-  const contentOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.45],
-    [1, 0],
-  );
-
-  const motionDuration = shouldReduceMotion ? 0 : 0.9;
-
   return (
     <section className="relative min-h-[100svh] w-full overflow-hidden">
+      {/* Hero photography */}
       <motion.div
         className="absolute inset-0 bg-ink"
         style={{
-          scale: backgroundScale,
-          y: backgroundY,
+          scale: shouldReduceMotion ? 1 : backgroundScale,
+          y: shouldReduceMotion ? 0 : backgroundY,
         }}
       >
         <motion.img
           src={HERO_IMAGE}
           alt="A couple on their wedding day"
-          initial={{ scale: shouldReduceMotion ? 1 : 1.08, opacity: 0 }}
-          animate={{ scale: 1, opacity: 0.75 }}
+          initial={{
+            scale: shouldReduceMotion ? 1 : 1.08,
+            opacity: 0,
+          }}
+          animate={{
+            scale: 1,
+            opacity: 0.75,
+          }}
           transition={{
             duration: shouldReduceMotion ? 0 : 1.8,
             ease: [0.22, 1, 0.36, 1],
@@ -71,35 +59,16 @@ export default function HeroSection() {
         />
       </motion.div>
 
-      <motion.div
-        style={{
-          y: contentY,
-          opacity: contentOpacity,
-        }}
-        className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1440px] flex-col justify-end px-6 pb-16 md:px-20 md:pb-24"
-      >
-        <motion.p
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: motionDuration,
-            delay: shouldReduceMotion ? 0 : 0.25,
-            ease: [0.22, 1, 0.36, 1],
-          }}
+      {/* Hero content */}
+      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1440px] flex-col justify-end px-6 pb-16 md:px-20 md:pb-24">
+        <p
           className="mb-6 text-xs uppercase tracking-[0.3em]"
           style={{ color: "rgba(216,195,165,0.8)" }}
         >
           Wedding Photography
-        </motion.p>
+        </p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 45 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: shouldReduceMotion ? 0 : 1.1,
-            delay: shouldReduceMotion ? 0 : 0.35,
-            ease: [0.22, 1, 0.36, 1],
-          }}
+        <h1
           className="mb-6 max-w-[800px] font-display font-light leading-none tracking-[0.02em]"
           style={{
             color: "#FAF8F5",
@@ -109,16 +78,9 @@ export default function HeroSection() {
           Timeless Moments.
           <br />
           Held Forever.
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: motionDuration,
-            delay: shouldReduceMotion ? 0 : 0.55,
-            ease: [0.22, 1, 0.36, 1],
-          }}
+        <p
           className="mb-10 max-w-lg font-light"
           style={{
             color: "rgba(250,248,245,0.75)",
@@ -128,31 +90,39 @@ export default function HeroSection() {
         >
           We preserve life's most meaningful moments with timeless imagery
           that families and friends will cherish for generations.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: motionDuration,
-            delay: shouldReduceMotion ? 0 : 0.7,
-            ease: [0.22, 1, 0.36, 1],
+        <Link
+          href="/consultation"
+          className="group relative inline-flex w-fit items-center gap-3 overflow-hidden rounded-[12px] px-6 py-3 text-sm uppercase tracking-widest transition-all duration-500 active:scale-[0.97] md:px-8 md:py-4"
+          style={{
+            backgroundColor: "#D8C3A5",
+            color: "#1A1A1A",
+            letterSpacing: "0.1em",
+            fontWeight: 400,
+            WebkitTapHighlightColor: "transparent",
           }}
         >
-          <Link
-            href="/consultation"
-            className="inline-flex items-center rounded-[12px] px-8 py-4 text-sm uppercase tracking-[0.12em] transition-all duration-300 hover:scale-[1.02] active:scale-[0.97]"
-            style={{
-              backgroundColor: "#D8C3A5",
-              color: "#1A1A1A",
-              WebkitTapHighlightColor: "transparent",
-            }}
-          >
-            Begin Your Story
-          </Link>
-        </motion.div>
-      </motion.div>
+          {/* Hover background */}
+          <span
+            className="absolute inset-0 origin-left scale-x-0 bg-[#7A5C45] transition-transform duration-500 ease-out group-hover:scale-x-100"
+            aria-hidden="true"
+          />
 
+          <span className="relative z-10 transition-colors duration-500 group-hover:text-[#FAF8F5]">
+            Begin Your Story
+          </span>
+
+          <span
+            className="relative z-10 transition-all duration-500 group-hover:translate-x-1 group-hover:text-[#FAF8F5]"
+            aria-hidden="true"
+          >
+            →
+          </span>
+        </Link>
+      </div>
+
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

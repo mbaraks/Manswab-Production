@@ -120,24 +120,38 @@ export default function Header() {
 
           {/* CTA + mobile menu */}
           <div className="flex items-center gap-4">
-            <Link
-              href="/consultation"
-              className="hidden items-center px-6 py-3 text-sm tracking-widest uppercase transition-all duration-300 lg:inline-flex"
-              style={{
-                backgroundColor: scrolled
-                  ? "#D8C3A5"
-                  : "rgba(216,195,165,0.82)",
-                color: "#1A1A1A",
-                borderRadius: "12px",
-                letterSpacing: "0.1em",
-                fontWeight: 400,
-                boxShadow: scrolled
-                  ? "none"
-                  : "0 4px 20px rgba(0,0,0,0.12)",
-              }}
-            >
-              Begin Your Story
-            </Link>
+
+<Link
+  href="/consultation"
+  className="group relative hidden items-center gap-3 overflow-hidden rounded-[12px] px-6 py-3 text-sm uppercase tracking-widest transition-all duration-500 hover:-translate-y-[1px] active:scale-[0.97] lg:inline-flex"
+  style={{
+    backgroundColor: "#D8C3A5",
+    color: "#1A1A1A",
+    letterSpacing: "0.1em",
+    fontWeight: 400,
+    boxShadow: scrolled
+      ? "none"
+      : "0 4px 20px rgba(0,0,0,0.12)",
+    WebkitTapHighlightColor: "transparent",
+  }}
+>
+  {/* Hover background */}
+  <span
+    className="absolute inset-0 origin-left scale-x-0 bg-[#7A5C45] transition-transform duration-500 ease-out group-hover:scale-x-100"
+    aria-hidden="true"
+  />
+
+  <span className="relative z-10 transition-colors duration-500 group-hover:text-[#FAF8F5]">
+    Begin Your Story
+  </span>
+
+  <span
+    className="relative z-10 transition-all duration-500 group-hover:translate-x-1 group-hover:text-[#FAF8F5]"
+    aria-hidden="true"
+  >
+    →
+  </span>
+</Link>
 
             {/* Mobile menu button */}
             <button

@@ -45,19 +45,28 @@ export default function Header() {
     };
   }, [menuOpen]);
 
-  const headerTextColor = scrolled ? "#1A1A1A" : "#FAF8F5";
-  const inactiveNavColor = scrolled ? "#5A5A5A" : "rgba(250,248,245,0.9)";
+  const headerTextColor = scrolled ? "#1A1A1A" : "#F3EEE8";
+
+  const inactiveNavColor = scrolled
+    ? "#5A5A5A"
+    : "#D8C3A5";
+
+  const navHoverColor = scrolled
+    ? "#7A5C45"
+    : "#D8C3A5";
 
   return (
     <>
       <header
-        className="fixed top-0 right-0 left-0 z-50 transition-all duration-500"
+        className="fixed top-0 right-0 left-0 z-50 transition-all duration-500 ease-out"
         style={{
           backgroundColor: scrolled
             ? "rgba(250,248,245,0.96)"
             : "rgba(26,26,26,0.03)",
           backdropFilter: scrolled ? "blur(12px)" : "blur(8px)",
-          WebkitBackdropFilter: scrolled ? "blur(12px)" : "blur(8px)",
+          WebkitBackdropFilter: scrolled
+            ? "blur(12px)"
+            : "blur(8px)",
           borderBottom: scrolled
             ? "1px solid rgba(216,195,165,0.3)"
             : "1px solid rgba(250,248,245,0.08)",
@@ -78,7 +87,7 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="text-base tracking-[0.18em] uppercase transition-opacity duration-300 hover:opacity-80 md:text-lg"
+            className="font-display text-[21px] font-medium tracking-[0.02em] transition-opacity duration-500 ease-out hover:opacity-75 md:text-[24px]"
             style={{
               color: headerTextColor,
               textShadow: scrolled
@@ -98,14 +107,11 @@ export default function Header() {
                 <Link
                   key={href}
                   href={href}
-                  className="text-sm tracking-widest uppercase transition-colors duration-300"
+                  className="group relative text-sm uppercase tracking-[0.12em] transition-all duration-500 ease-out"
                   style={{
                     color: isActive
-                      ? scrolled
-                        ? "#7A5C45"
-                        : "#D8C3A5"
+                      ? navHoverColor
                       : inactiveNavColor,
-                    letterSpacing: "0.12em",
                     fontWeight: 400,
                     textShadow: scrolled
                       ? "none"
@@ -113,6 +119,15 @@ export default function Header() {
                   }}
                 >
                   {label}
+
+                  <span
+                    className="absolute -bottom-2 left-1/2 h-px w-0 -translate-x-1/2 transition-all duration-500 ease-out group-hover:w-full"
+                    style={{
+                      backgroundColor: navHoverColor,
+                      boxShadow: `0 0 10px ${navHoverColor}`,
+                    }}
+                    aria-hidden="true"
+                  />
                 </Link>
               );
             })}
@@ -120,43 +135,29 @@ export default function Header() {
 
           {/* CTA + mobile menu */}
           <div className="flex items-center gap-4">
+            {/* Desktop CTA */}
+            <Link
+              href="/consultation"
+              className="group hidden items-center gap-4 rounded-[12px] bg-[#D8C3A5] px-6 py-4 text-sm uppercase tracking-[0.12em] text-[#1A1A1A] transition-all duration-500 ease-out hover:-translate-y-0.5 hover:bg-[#7A5C45] hover:text-[#FAF8F5] hover:shadow-[0_10px_30px_rgba(26,26,26,0.12)] active:translate-y-0 active:scale-[0.98] lg:inline-flex"
+              style={{
+                fontWeight: 400,
+                WebkitTapHighlightColor: "transparent",
+              }}
+            >
+              <span>Begin Your Story</span>
 
-<Link
-  href="/consultation"
-  className="group relative hidden items-center gap-3 overflow-hidden rounded-[12px] px-6 py-3 text-sm uppercase tracking-widest transition-all duration-500 hover:-translate-y-[1px] active:scale-[0.97] lg:inline-flex"
-  style={{
-    backgroundColor: "#D8C3A5",
-    color: "#1A1A1A",
-    letterSpacing: "0.1em",
-    fontWeight: 400,
-    boxShadow: scrolled
-      ? "none"
-      : "0 4px 20px rgba(0,0,0,0.12)",
-    WebkitTapHighlightColor: "transparent",
-  }}
->
-  {/* Hover background */}
-  <span
-    className="absolute inset-0 origin-left scale-x-0 bg-[#7A5C45] transition-transform duration-500 ease-out group-hover:scale-x-100"
-    aria-hidden="true"
-  />
-
-  <span className="relative z-10 transition-colors duration-500 group-hover:text-[#FAF8F5]">
-    Begin Your Story
-  </span>
-
-  <span
-    className="relative z-10 transition-all duration-500 group-hover:translate-x-1 group-hover:text-[#FAF8F5]"
-    aria-hidden="true"
-  >
-    →
-  </span>
-</Link>
+              <span
+                className="transition-transform duration-500 ease-out group-hover:translate-x-1"
+                aria-hidden="true"
+              >
+                →
+              </span>
+            </Link>
 
             {/* Mobile menu button */}
             <button
               type="button"
-              className="flex flex-col gap-1.5 p-2 lg:hidden"
+              className="flex flex-col gap-1.5 p-2 transition-opacity duration-300 hover:opacity-70 lg:hidden"
               onClick={() => setMenuOpen((open) => !open)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
@@ -170,6 +171,7 @@ export default function Header() {
                     : "none",
                 }}
               />
+
               <span
                 className="block h-px w-4 transition-all duration-300"
                 style={{
@@ -177,6 +179,7 @@ export default function Header() {
                   opacity: menuOpen ? 0 : 1,
                 }}
               />
+
               <span
                 className="block h-px w-6 origin-center transition-all duration-300"
                 style={{
@@ -198,8 +201,11 @@ export default function Header() {
           backgroundColor: "#FAF8F5",
           opacity: menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? "auto" : "none",
-          transform: menuOpen ? "translateY(0)" : "translateY(-8px)",
-          transition: "opacity 500ms ease, transform 500ms ease",
+          transform: menuOpen
+            ? "translateY(0)"
+            : "translateY(-8px)",
+          transition:
+            "opacity 500ms ease, transform 500ms ease",
         }}
       >
         <div className="flex flex-1 flex-col justify-center px-8 pt-24 pb-12">
@@ -211,54 +217,38 @@ export default function Header() {
                 <Link
                   key={href}
                   href={href}
-                  className="font-display text-4xl transition-colors duration-200"
+                  className="group relative w-fit font-display text-4xl font-light transition-all duration-500"
                   style={{
-                    color: isActive ? "#7A5C45" : "#1A1A1A",
-                    fontWeight: 300,
+                    color: isActive
+                      ? "#7A5C45"
+                      : "#1A1A1A",
                   }}
                 >
                   {label}
+
+                  <span
+                    className="absolute -bottom-2 left-0 h-px w-0 bg-[#7A5C45] transition-all duration-500 ease-out group-hover:w-full"
+                    aria-hidden="true"
+                  />
                 </Link>
               );
             })}
           </nav>
 
+          {/* Mobile CTA */}
           <Link
             href="/consultation"
-            className="inline-flex max-w-[280px] items-center justify-center px-8 py-4 text-sm tracking-widest uppercase"
-            style={{
-              backgroundColor: "#D8C3A5",
-              color: "#1A1A1A",
-              borderRadius: "12px",
-              letterSpacing: "0.1em",
-            }}
+            className="group inline-flex max-w-[280px] items-center justify-center gap-4 rounded-[12px] bg-[#D8C3A5] px-8 py-4 text-sm uppercase tracking-[0.1em] text-[#1A1A1A] transition-all duration-500 ease-out hover:-translate-y-0.5 hover:bg-[#7A5C45] hover:text-[#FAF8F5] hover:shadow-[0_10px_30px_rgba(26,26,26,0.12)] active:scale-[0.98]"
           >
-            Begin Your Story
+            <span>Begin Your Story</span>
+
+            <span
+              className="transition-transform duration-500 ease-out group-hover:translate-x-1"
+              aria-hidden="true"
+            >
+              →
+            </span>
           </Link>
-
-          <div className="mt-12 flex gap-6">
-            <a
-              href="#"
-              className="text-sm tracking-widest uppercase"
-              style={{
-                color: "#5A5A5A",
-                letterSpacing: "0.12em",
-              }}
-            >
-              Instagram
-            </a>
-
-            <a
-              href="#"
-              className="text-sm tracking-widest uppercase"
-              style={{
-                color: "#5A5A5A",
-                letterSpacing: "0.12em",
-              }}
-            >
-              Facebook
-            </a>
-          </div>
         </div>
       </div>
     </>

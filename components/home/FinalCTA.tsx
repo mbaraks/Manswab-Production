@@ -32,27 +32,16 @@ export default function FinalCTA() {
 
           <Link
             href="/contact"
-            className="group relative mt-10 inline-flex items-center gap-3 overflow-hidden rounded-[12px] border px-7 py-4 text-sm uppercase tracking-widest transition-all duration-500 active:scale-[0.97]"
+            className="group mt-10 inline-flex items-center gap-4 rounded-[12px] bg-[#D8C3A5] px-6 py-4 text-sm uppercase tracking-[0.12em] text-[#1A1A1A] transition-all duration-500 ease-out hover:-translate-y-0.5 hover:bg-[#7A5C45] hover:text-[#FAF8F5] hover:shadow-[0_10px_30px_rgba(26,26,26,0.12)] active:translate-y-0 active:scale-[0.98]"
             style={{
-              borderColor: "#7A5C45",
-              backgroundColor: "transparent",
-              color: "#7A5C45",
-              letterSpacing: "0.1em",
               fontWeight: 400,
               WebkitTapHighlightColor: "transparent",
             }}
           >
-            <span
-              className="absolute inset-0 origin-left scale-x-0 bg-[#7A5C45] transition-transform duration-500 ease-out group-hover:scale-x-100"
-              aria-hidden="true"
-            />
-
-            <span className="relative z-10 transition-colors duration-500 group-hover:text-[#FAF8F5]">
-              Begin Your Story
-            </span>
+            <span>Begin Your Story</span>
 
             <span
-              className="relative z-10 transition-all duration-500 group-hover:translate-x-1 group-hover:text-[#FAF8F5]"
+              className="transition-transform duration-500 ease-out group-hover:translate-x-1"
               aria-hidden="true"
             >
               →
